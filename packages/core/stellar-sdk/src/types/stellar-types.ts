@@ -1,3 +1,5 @@
+import type { Keypair } from '@stellar/stellar-sdk';
+
 /**
  * @fileoverview Type definitions for Stellar operations
  * @description Contains all interfaces and types related to Stellar functionality
@@ -14,9 +16,15 @@
  * @property {string} passphrase - Network passphrase
  */
 export interface NetworkConfig {
-  network: 'testnet' | 'mainnet';
+  network: Network;
   horizonUrl: string;
   passphrase: string;
+  /** Soroban RPC endpoint for this network. */
+  rpcUrl?: string;
+  /** Canonical name for `passphrase`; retained alongside the legacy alias. */
+  networkPassphrase?: string;
+  /** Friendbot endpoint, when the network provides one. */
+  friendbotUrl?: string;
 }
 
 /**
@@ -64,6 +72,13 @@ export interface Wallet {
   updatedAt: Date;
   metadata: Record<string, unknown>;
 }
+
+/** A wallet whose keypair is already unlocked on the client device. */
+export interface NonCustodialWallet extends Omit<Wallet, 'privateKey'> {
+  keypair: Keypair;
+}
+
+export type SigningWallet = Wallet | NonCustodialWallet;
 
 /**
  * Account balance information
@@ -163,7 +178,7 @@ export interface TransactionInfo {
  * Network type definition
  * @type Network
  */
-export type Network = 'testnet' | 'mainnet';
+export type Network = 'testnet' | 'mainnet' | 'futurenet';
 
 /**
  * Asset type definition

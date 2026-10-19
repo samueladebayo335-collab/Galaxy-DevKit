@@ -3,19 +3,19 @@
   "version": "5.0.2",
   "description": "Galaxy Stellar SDK - Enhanced Stellar SDK with Soroban smart contract support for Galaxy DevKit",
   "type": "module",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "main": "dist/stellar-sdk/src/index.js",
+  "types": "dist/stellar-sdk/src/index.d.ts",
   "scripts": {
     "build": "tsc",
     "dev": "tsc --watch",
     "test": "jest --config jest.config.cjs",
-    "lint": "eslint src/**/*.ts",
-    "lint:fix": "eslint src/**/*.ts --fix",
+    "lint": "eslint src",
+    "lint:fix": "eslint src --fix",
     "type-check": "tsc --noEmit",
     "clean": "rm -rf dist"
   },
   "dependencies": {
-    "@stellar/stellar-sdk": "^14.4.3",
+    "@stellar/stellar-sdk": "^14.6.1",
     "@supabase/supabase-js": "^2.49.2",
     "@types/jest": "^30.0.0",
     "bignumber.js": "^9.1.2",
@@ -23,12 +23,7 @@
     "ed25519-hd-key": "^1.3.0"
   },
   "devDependencies": {
-    "@types/bip39": "^3.0.0",
-    "@types/jest": "^30.0.0",
-    "@types/node": "^20.0.0",
-    "jest": "^30.0.5",
-    "ts-jest": "^29.0.0",
-    "typescript": "^5.8.3"
+    "@types/bip39": "^3.0.0"
   },
   "keywords": [
     "stellar",

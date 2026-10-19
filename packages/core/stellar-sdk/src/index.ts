@@ -7,10 +7,13 @@
  */
 
 // Export types
+export type { Json } from './types/database.types.js';
 export type {
   NetworkConfig,
   WalletConfig,
   Wallet,
+  NonCustodialWallet,
+  SigningWallet,
   Balance,
   AccountInfo,
   PaymentParams,
@@ -161,7 +164,7 @@ export type {
   PathCacheEntry,
   PathPaymentManagerOptions,
 } from './path-payments/types.js';
-export { PathPaymentManager, HIGH_PRICE_IMPACT_THRESHOLD } from './path-payments/index.js';
+export { PathPaymentManager, PathPaymentError, HIGH_PRICE_IMPACT_THRESHOLD } from './path-payments/index.js';
 
 // Export sponsored reserves module
 export * from './sponsored-reserves/index.js';
@@ -171,5 +174,11 @@ export type { ICache, CacheOptions, CacheStats, CacheEntry } from './cache/cache
 export { InMemoryCache } from './cache/in-memory-cache.js';
 export { CacheManager, globalCache, DEFAULT_CHANNEL_CONFIGS } from './cache/cache-manager.js';
 export { NetworkUtils } from './utils/network-utils.js';
+export {
+  NETWORKS,
+  resolveNetwork,
+  type NetworkName,
+  type NetworkDefinition,
+  type NetworkOverrides,
+} from './utils/network-utils.js';
 export { supabaseClient } from './utils/supabase-client.js';
-

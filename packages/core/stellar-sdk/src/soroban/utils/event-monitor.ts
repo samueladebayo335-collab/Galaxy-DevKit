@@ -1,4 +1,3 @@
-// @ts-nocheck
 /**
  * @fileoverview Contract Event Monitor
  * @description Monitor and subscribe to Soroban contract events
@@ -8,6 +7,7 @@
  */
 
 import { SorobanRpc, xdr } from '../../types/stellar-sdk-compat.js';
+import { resolveNetwork } from '../../utils/network-utils.js';
 import { ScValConverter } from './scval-converter.js';
 import {
   ContractEventQueryParams,
@@ -15,13 +15,17 @@ import {
   EventSubscription,
 } from '../types/contract-types.js';
 
+function topicStringFilter(value: unknown): SorobanRpc.TopicString {
+  return { type: 'string', value };
+}
+
 export class ContractEventMonitor {
   private server: SorobanRpc.Server;
   private subscriptions: Map<string, EventSubscription>;
   private pollingIntervals: Map<string, NodeJS.Timeout>;
   private lastLedger: number;
 
-  constructor(rpcUrl: string = 'https://soroban-testnet.stellar.org') {
+  constructor(rpcUrl: string = resolveNetwork('testnet').rpcUrl) {
     this.server = new SorobanRpc.Server(rpcUrl);
     this.subscriptions = new Map();
     this.pollingIntervals = new Map();
@@ -82,7 +86,7 @@ export class ContractEventMonitor {
         filters.push({
           type: 'contract',
           contractIds: [contractId],
-          topics: eventTypes.map(type => ({ type: 'string', value: type })),
+          topics: eventTypes.map(type => topicStringFilter(type)),
         });
       } else {
         filters.push({
@@ -95,10 +99,9 @@ export class ContractEventMonitor {
       if (topics && topics.length > 0) {
         filters[0].topics = [
           ...(filters[0].topics || []),
-          ...topics.map(topic => ({
-            type: 'string',
-            value: ScValConverter.fromScVal(topic),
-          })),
+          ...topics.map(topic =>
+            topicStringFilter(ScValConverter.fromScVal(topic))
+          ),
         ];
       }
 

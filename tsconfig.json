@@ -25,29 +25,14 @@
     "ignoreDeprecations": "5.0",
     "baseUrl": ".",
     "paths": {
-      "@galaxy/core/*": [
-        "packages/core/*/src"
-      ],
       "@galaxy-kj/core/*": [
         "packages/core/*/src"
       ],
-      "@galaxy/core-stellar-sdk": [
-        "packages/core/stellar-sdk/src"
-      ],
-      "@galaxy/core-stellar-sdk/*": [
-        "packages/core/stellar-sdk/src/*"
-      ],
       "@galaxy-kj/core-stellar-sdk": [
-        "packages/core/stellar-sdk/src"
+        "packages/core/stellar-sdk/src/index.ts"
       ],
       "@galaxy-kj/core-stellar-sdk/*": [
         "packages/core/stellar-sdk/src/*"
-      ],
-      "@galaxy/core-wallet": [
-        "packages/core/wallet/src/index.ts"
-      ],
-      "@galaxy/core-wallet/*": [
-        "packages/core/wallet/src/*"
       ],
       "@galaxy-kj/core-wallet": [
         "packages/core/wallet/src/index.ts"
@@ -55,23 +40,11 @@
       "@galaxy-kj/core-wallet/*": [
         "packages/core/wallet/src/*"
       ],
-      "@galaxy/core-defi-protocols": [
-        "packages/core/defi-protocols/src"
-      ],
-      "@galaxy/core-defi-protocols/*": [
-        "packages/core/defi-protocols/src/*"
-      ],
       "@galaxy-kj/core-defi-protocols": [
         "packages/core/defi-protocols/src"
       ],
       "@galaxy-kj/core-defi-protocols/*": [
         "packages/core/defi-protocols/src/*"
-      ],
-      "@galaxy/core-defi": [
-        "packages/core/defi/src"
-      ],
-      "@galaxy/core-defi/*": [
-        "packages/core/defi/src/*"
       ],
       "@galaxy-kj/core-defi": [
         "packages/core/defi/src"
@@ -79,23 +52,11 @@
       "@galaxy-kj/core-defi/*": [
         "packages/core/defi/src/*"
       ],
-      "@galaxy/core-oracles": [
-        "packages/core/oracles/src"
-      ],
-      "@galaxy/core-oracles/*": [
-        "packages/core/oracles/src/*"
-      ],
       "@galaxy-kj/core-oracles": [
         "packages/core/oracles/src"
       ],
       "@galaxy-kj/core-oracles/*": [
         "packages/core/oracles/src/*"
-      ],
-      "@galaxy/core-test-utils": [
-        "packages/core/test-utils/src"
-      ],
-      "@galaxy/core-test-utils/*": [
-        "packages/core/test-utils/src/*"
       ],
       "@galaxy-kj/core-test-utils": [
         "packages/core/test-utils/src"
@@ -103,23 +64,11 @@
       "@galaxy-kj/core-test-utils/*": [
         "packages/core/test-utils/src/*"
       ],
-      "@galaxy/core-invisible-wallet": [
-        "packages/core/invisible-wallet/src"
-      ],
-      "@galaxy/core-invisible-wallet/*": [
-        "packages/core/invisible-wallet/src/*"
-      ],
       "@galaxy-kj/core-invisible-wallet": [
         "packages/core/invisible-wallet/src"
       ],
       "@galaxy-kj/core-invisible-wallet/*": [
         "packages/core/invisible-wallet/src/*"
-      ],
-      "@galaxy/core-automation": [
-        "packages/core/automation/src"
-      ],
-      "@galaxy/core-automation/*": [
-        "packages/core/automation/src/*"
       ],
       "@galaxy-kj/core-automation": [
         "packages/core/automation/src"
@@ -127,32 +76,11 @@
       "@galaxy-kj/core-automation/*": [
         "packages/core/automation/src/*"
       ],
-      "@galaxy/frontend": [
-        "packages/frontend/src"
-      ],
-      "@galaxy/frontend/*": [
-        "packages/frontend/src/*"
-      ],
       "@galaxy-kj/frontend": [
         "packages/frontend/src"
       ],
       "@galaxy-kj/frontend/*": [
         "packages/frontend/src/*"
-      ],
-      "@galaxy/contracts/*": [
-        "packages/contracts/*/src"
-      ],
-      "@galaxy/api/*": [
-        "packages/api/*/src"
-      ],
-      "@galaxy/sdk/*": [
-        "packages/sdk/*/src"
-      ],
-      "@galaxy/templates/*": [
-        "packages/templates/*/src"
-      ],
-      "@galaxy/tools/*": [
-        "tools/*/src"
       ]
     }
   },

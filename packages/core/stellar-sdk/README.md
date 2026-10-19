@@ -249,11 +249,26 @@ const entriesFor = await manager.getSponsoredEntries(userPublicKey);
 // Get entries sponsored BY an account
 const entriesBy = await manager.getEntriesSponsoredBy(sponsorPublicKey);
 
+// Continue after the last returned entry across all entry types
+const lastEntry = entriesBy.at(-1);
+const nextEntries = lastEntry
+  ? await manager.getEntriesSponsoredBy(sponsorPublicKey, {
+      cursor: `${lastEntry.entryType}:${lastEntry.entryId}`,
+      order: 'asc',
+      limit: 20,
+    })
+  : [];
+
 // Filter by type
 const trustlines = await manager.getSponsoredEntries(userPublicKey, {
   entryType: 'trustline',
 });
 ```
+
+Sponsor queries combine records from multiple Horizon endpoints, so their cursor is a
+composite key in the form `entryType:entryId`. Ordering and limits are applied to the
+merged results. Data-entry sponsorship is resolved through the configured Soroban RPC
+endpoint; set `rpcUrl` in `NetworkConfig` when using a non-default endpoint.
 
 ### Revoking Sponsorship
 
@@ -278,6 +293,8 @@ await manager.revokeTrustlineSponsorship(
 ## Path Payments (Swap & Path Finding)
 
 Path payments enable cross-asset swaps and multi-hop payments using Stellar Horizon's path finding. Use **PathPaymentManager** for strict send (fixed send amount), strict receive (fixed receive amount), best-path selection, slippage protection, and swap analytics.
+
+Path search goes through `server.strictSendPaths` and `server.strictReceivePaths`, so asset type (including `credit_alphanum12`) is taken from the `Asset` itself. `maxSlippage` is a percent from 0 to 50. The default is 1. Strict send sets `destMin` from the quoted destination, rounded down to 7 decimals. Strict receive sets `sendMax` from the quoted source, rounded up to 7 decimals. Failures throw `PathPaymentError` with one of these codes: `INVALID_SLIPPAGE`, `INVALID_AMOUNT`, `SAME_ASSET`, `NO_LIQUIDITY`, `HORIZON_ERROR`, `SUBMIT_FAILED`.
 
 ### Quick Start
 

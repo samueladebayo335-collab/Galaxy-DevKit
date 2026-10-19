@@ -16,6 +16,14 @@
 - **Soroswap** - Decentralized exchange
 - **Aquarius** - Liquidity pools
 
+### Blend pool configuration and liquidation discovery
+
+`BlendProtocol.initialize()` reads pool metadata and reserves through the Blend SDK.
+It rejects RPC or incomplete reserve loads so callers can retry instead of using an
+empty placeholder. `getPoolConfig()` returns a copy of that on-chain configuration.
+See the [Blend discovery guide](../../../docs/guides/blend-discovery.md) for options,
+the indexer response contract, and event-history limits.
+
 ## 🎯 Features
 
 - ✅ **Unified Interface** - Common interface (`IDefiProtocol`) for all protocols
@@ -285,7 +293,21 @@ const route = await router.findOptimalRoute(
 
 console.log(route.path.map((asset) => asset.code));
 console.log(route.estimatedOutput);
+if (route.highImpactWarning) {
+  console.warn(`High price impact: ${route.priceImpact.toFixed(2)}%`);
+}
 ```
+
+The legacy aggregator router exposes `totalFeePercent` as a sum of the
+venue-reported fee rates (Soroswap currently reports 0.3%, SDEX reports no LP
+fee, and Aquarius includes a fee only when its quote response provides one).
+Route selection compares the quoted `estimatedOutput`, because venue quote
+outputs already include their swap fees; reported rates are display metadata
+and must not be deducted a second time. Its `priceImpact` composes the hop impacts and
+`highImpactWarning` follows the
+5% threshold used by `PathPaymentManager`. When every candidate quote fails,
+the router includes individual venue failure messages so callers can distinguish
+unavailable RPCs from an empty route set.
 
 #### initialize()
 
